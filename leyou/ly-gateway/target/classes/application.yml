@@ -1,0 +1,31 @@
+server:
+  port: 10010     #服务端口
+spring:
+  application:
+    name: ly-gateway   #指定服务名
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 5
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000 # 熔断超时时长：6000ms
+ribbon:
+  ConnectTimeout: 500 # ribbon链接超时时长
+  ReadTimeout: 2000 # ribbon读取超时时长
+  MaxAutoRetries: 0  # 当前服务重试次数
+  MaxAutoRetriesNextServer: 1 # 切换服务重试次数
+  OkToRetryOnAllOperations: false # 是否对所有的请求方式都重试，只对get请求重试
+zuul:
+  prefix: /api    #添加路由前缀
+  routes:
+    #item-service:
+    path: /item/**    # 将商品微服务映射到/item/**  #path路径中建议使用eureka注册的服务名称
+    #url: http://127.0.0.1:8081  #映射路径对应的实际url地址
+
+
